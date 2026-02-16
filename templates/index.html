@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mental Health Treatment Prediction</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .tilt-card {
+      perspective: 1000px;
+    }
+    .inner-card {
+      transition: transform 0.3s ease;
+      transform-style: preserve-3d;
+      padding: 30px;
+      background: #f8f9fa;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      max-width: 700px;
+      margin: auto;
+    }
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+    label {
+      font-weight: 600;
+    }
+    .btn-primary {
+      background-color: #764ba2;
+      border-color: #764ba2;
+    }
+    .btn-primary:hover {
+      background-color: #5a3780;
+      border-color: #5a3780;
+    }
+  </style>
+</head>
+<body>
+  <div class="tilt-card">
+    <div class="inner-card" id="card">
+      <h1 class="text-center">Mental Health Treatment Prediction</h1>
+
+      {% if error %}
+      <div class="alert alert-danger" role="alert">
+        <strong>Error:</strong> {{ error }}
+      </div>
+      {% endif %}
+
+      <form method="POST" class="row g-3">
+
+        <div class="col-md-6">
+          <label for="Age" class="form-label">Age</label>
+          <input type="number" class="form-control" id="Age" name="Age" min="18" max="100" required />
+        </div>
+
+        <div class="col-md-6">
+          <label for="Gender" class="form-label">Gender</label>
+          <select class="form-select" id="Gender" name="Gender" required>
+            <option selected>male</option>
+            <option>female</option>
+            <option>other</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="self_employed" class="form-label">Self Employed</label>
+          <select class="form-select" id="self_employed" name="self_employed" required>
+            <option selected>No</option>
+            <option>Yes</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="family_history" class="form-label">Family History</label>
+          <select class="form-select" id="family_history" name="family_history" required>
+            <option selected>No</option>
+            <option>Yes</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="work_interfere" class="form-label">Work Interferes with Mental Health</label>
+          <select class="form-select" id="work_interfere" name="work_interfere" required>
+            <option selected>Never</option>
+            <option>Rarely</option>
+            <option>Sometimes</option>
+            <option>Often</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="no_employees" class="form-label">Company Size</label>
+          <select class="form-select" id="no_employees" name="no_employees" required>
+            <option selected>1-5</option>
+            <option>6-25</option>
+            <option>26-100</option>
+            <option>100-500</option>
+            <option>500-1000</option>
+            <option>More than 1000</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="remote_work" class="form-label">Remote Work</label>
+          <select class="form-select" id="remote_work" name="remote_work" required>
+            <option selected>No</option>
+            <option>Yes</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="tech_company" class="form-label">Tech Company</label>
+          <select class="form-select" id="tech_company" name="tech_company" required>
+            <option selected>No</option>
+            <option>Yes</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="benefits" class="form-label">Mental Health Benefits</label>
+          <select class="form-select" id="benefits" name="benefits" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Don't know</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="care_options" class="form-label">Care Options</label>
+          <select class="form-select" id="care_options" name="care_options" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Don't know</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="wellness_program" class="form-label">Wellness Program</label>
+          <select class="form-select" id="wellness_program" name="wellness_program" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Don't know</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="seek_help" class="form-label">Seek Help</label>
+          <select class="form-select" id="seek_help" name="seek_help" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Don't know</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="anonymity" class="form-label">Anonymity</label>
+          <select class="form-select" id="anonymity" name="anonymity" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Don't know</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="leave" class="form-label">Leave for Mental Health</label>
+          <select class="form-select" id="leave" name="leave" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Don't know</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="mental_health_consequence" class="form-label">Mental Health Consequence</label>
+          <select class="form-select" id="mental_health_consequence" name="mental_health_consequence" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Maybe</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="phys_health_consequence" class="form-label">Physical Health Consequence</label>
+          <select class="form-select" id="phys_health_consequence" name="phys_health_consequence" required>
+            <option selected>No</option>
+            <option>Yes</option>
+            <option>Maybe</option>
+          </select>
+        </div>
+
+        <div class="col-12 mt-4 text-center">
+          <button type="submit" class="btn btn-primary btn-lg px-5">Predict</button>
+        </div>
+      </form>
+
+      {% if result %}
+      <div class="alert alert-info mt-5 text-center rounded">
+        <h4 class="mb-3">Prediction Result</h4>
+        <p class="fs-5">Will seek treatment? <strong>{{ result }}</strong></p>
+        <p>Confidence: <strong>{{ confidence }}</strong></p>
+        <div id="lottie-animation" style="width: 200px; margin: 20px auto;"></div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Lottie Player JS -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <script>
+    // Lottie animation for result
+    {% if result %}
+    const container = document.getElementById('lottie-animation');
+    container.innerHTML = `<lottie-player
+      src="https://assets7.lottiefiles.com/packages/lf20_x62chJ.json"
+      background="transparent"
+      speed="1"
+      style="width: 200px; height: 200px;"
+      loop
+      autoplay>
+    </lottie-player>`;
+    {% endif %}
+
+    // 3D tilt effect on card
+    const card = document.getElementById('card');
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * 1;
+      const rotateY = ((x - centerX) / centerX) * 1;
+      card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateX(0) rotateY(0)';
+    });
+  </script>
+</body>
+</html>
